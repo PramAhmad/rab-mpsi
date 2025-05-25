@@ -1066,6 +1066,910 @@
             </ul>
         </div>
     </div>
+    <!-- Add this section right after the regular cash flow table -->
+
+<div style="margin-top: 30px; margin-bottom: 20px;">
+    <div class="header">
+        <h1>CASH FLOW SESUAI BASELINE PROYEK HNI UNIVERSE</h1>
+        <p>Perencanaan Arus Kas Berdasarkan Baseline Schedule</p>
+    </div>
+    
+    <div class="controls">
+        <button class="btn" onclick="toggleBaselineTable()">🔄 Toggle Tampilan</button>
+        <button class="btn" id="downloadBaselineExcel">📊 Download Excel</button>
+    </div>
+    
+    <table class="cashflow-table" id="baseline-table">
+        <thead>
+            <tr>
+                <th rowspan="3">No</th>
+                <th rowspan="3" class="item-desc">Aktivitas</th>
+                <th colspan="3" rowspan="2">Nilai (Rp)</th>
+                <th rowspan="3">Bobot (%)</th>
+                <th colspan="13">Cash Flow (Rp) pada minggu ke ...</th>
+                <th rowspan="3">Total</th>
+            </tr>
+            <tr>
+                <th colspan="5" class="month-header">Bulan Ke-1</th>
+                <th colspan="4" class="month-header">Bulan Ke-2</th>
+                <th colspan="4" class="month-header">Bulan Ke-3</th>
+            </tr>
+            <tr>
+                <th>Personil</th>
+                <th>Non Personil</th>
+                <th>Total</th>
+                <th class="week-header">1</th>
+                <th class="week-header">2</th>
+                <th class="week-header">3</th>
+                <th class="week-header">4</th>
+                <th class="week-header">5</th>
+                <th class="week-header">6</th>
+                <th class="week-header">7</th>
+                <th class="week-header">8</th>
+                <th class="week-header">9</th>
+                <th class="week-header">10</th>
+                <th class="week-header">11</th>
+                <th class="week-header">12</th>
+                <th class="week-header">13</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- A. Saldo Awal -->
+            <tr>
+                <td colspan="5" class="payment-row">A. SALDO AWAL</td>
+                <td class="payment-row"></td>
+                <td colspan="13" class="payment-row"></td>
+                <td class="payment-row"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="item-desc">Modal Kerja</td>
+                <td class="value-cell"></td>
+                <td class="value-cell"></td>
+                <td class="value-cell">100,000,000</td>
+                <td></td>
+                <td class="positive-value">100,000,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="positive-value">100,000,000</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="item-desc">Pengembalian Modal Kerja</td>
+                <td class="value-cell"></td>
+                <td class="value-cell"></td>
+                <td class="value-cell">-100,000,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-100,000,000</td>
+                <td class="negative-value">-100,000,000</td>
+            </tr>
+            
+            <!-- B. Pemasukan -->
+            <tr>
+                <td colspan="5" class="payment-row">B. PEMASUKAN</td>
+                <td class="payment-row"></td>
+                <td colspan="13" class="payment-row"></td>
+                <td class="payment-row"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="item-desc">Pencairan Tahap 1 (25%)</td>
+                <td class="value-cell"></td>
+                <td class="value-cell"></td>
+                <td class="value-cell">126,487,500</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="positive-value">126,487,500</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="positive-value">126,487,500</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="item-desc">Pencairan Tahap 2 (35%)</td>
+                <td class="value-cell"></td>
+                <td class="value-cell"></td>
+                <td class="value-cell">177,082,500</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="positive-value">177,082,500</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="positive-value">177,082,500</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="item-desc">Pencairan Tahap 3 (40%)</td>
+                <td class="value-cell"></td>
+                <td class="value-cell"></td>
+                <td class="value-cell">202,380,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="positive-value">202,380,000</td>
+                <td class="positive-value">202,380,000</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="4">Total Pemasukan</td>
+                <td class="value-cell">505,950,000</td>
+                <td>100%</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">126,487,500</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">177,082,500</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">0</td>
+                <td class="positive-value">202,380,000</td>
+                <td class="positive-value">505,950,000</td>
+            </tr>
+            
+            <!-- C. Pajak -->
+            <tr>
+                <td colspan="5" class="payment-row">C. PAJAK</td>
+                <td class="payment-row"></td>
+                <td colspan="13" class="payment-row"></td>
+                <td class="payment-row"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="item-desc">Pajak Tahap 1 (2%)</td>
+                <td class="value-cell"></td>
+                <td class="value-cell"></td>
+                <td class="value-cell">-2,529,750</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-2,529,750</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-2,529,750</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="item-desc">Pajak Tahap 2 (2%)</td>
+                <td class="value-cell"></td>
+                <td class="value-cell"></td>
+                <td class="value-cell">-3,541,650</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-3,541,650</td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-3,541,650</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="item-desc">Pajak Tahap 3 (2%)</td>
+                <td class="value-cell"></td>
+                <td class="value-cell"></td>
+                <td class="value-cell">-4,047,600</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-4,047,600</td>
+                <td class="negative-value">-4,047,600</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="4">Total Pajak</td>
+                <td class="value-cell">-10,119,000</td>
+                <td></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="negative-value">-2,529,750</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="negative-value">-3,541,650</td>
+                <td>0</td>
+                <td class="negative-value">-4,047,600</td>
+                <td class="negative-value">-10,119,000</td>
+            </tr>
+            
+            <!-- D. Pembiayaan -->
+            <tr>
+                <td colspan="5" class="payment-row">D. PEMBIAYAAN</td>
+                <td class="payment-row">%</td>
+                <td colspan="13" class="payment-row"></td>
+                <td class="payment-row">Total</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td class="item-desc">Administrasi dan Pertemuan Awal</td>
+                <td class="value-cell">18,610,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">18,610,000</td>
+                <td>3.68%</td>
+                <td class="negative-value">-18,610,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-18,610,000</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td class="item-desc">Survei dan Wawancara Analisis Proses Bisnis</td>
+                <td class="value-cell">20,440,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">20,440,000</td>
+                <td>4.04%</td>
+                <td class="negative-value">-6,813,333</td>
+                <td class="negative-value">-6,813,333</td>
+                <td class="negative-value">-6,813,333</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-20,440,000</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td class="item-desc">SLA dan Penyiapan Lingkungan Pengembangan</td>
+                <td class="value-cell">16,800,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">16,800,000</td>
+                <td>3.32%</td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-5,600,000</td>
+                <td class="negative-value">-5,600,000</td>
+                <td class="negative-value">-5,600,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-16,800,000</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td class="item-desc">Analisis Kebutuhan Sistem</td>
+                <td class="value-cell">32,060,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">32,060,000</td>
+                <td>6.34%</td>
+                <td></td>
+                <td class="negative-value">-16,030,000</td>
+                <td class="negative-value">-16,030,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-32,060,000</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td class="item-desc">Perancangan Sistem</td>
+                <td class="value-cell">41,070,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">41,070,000</td>
+                <td>8.12%</td>
+                <td class="negative-value">-10,267,500</td>
+                <td class="negative-value">-10,267,500</td>
+                <td class="negative-value">-10,267,500</td>
+                <td class="negative-value">-10,267,500</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-41,070,000</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td class="item-desc">Pembuatan Program Aplikasi</td>
+                <td class="value-cell">46,500,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">46,500,000</td>
+                <td>9.19%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-9,300,000</td>
+                <td class="negative-value">-9,300,000</td>
+                <td class="negative-value">-9,300,000</td>
+                <td class="negative-value">-9,300,000</td>
+                <td class="negative-value">-9,300,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-46,500,000</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td class="item-desc">Pengujian Program Aplikasi</td>
+                <td class="value-cell">31,330,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">31,330,000</td>
+                <td>6.19%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-7,832,500</td>
+                <td class="negative-value">-7,832,500</td>
+                <td class="negative-value">-7,832,500</td>
+                <td class="negative-value">-7,832,500</td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-31,330,000</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td class="item-desc">Pengadaan Perangkat</td>
+                <td class="value-cell">10,720,000</td>
+                <td class="value-cell">158,400,000</td>
+                <td class="value-cell">169,120,000</td>
+                <td>33.43%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-84,560,000</td>
+                <td class="negative-value">-84,560,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-169,120,000</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td class="item-desc">Instalasi PC dan Periferal</td>
+                <td class="value-cell">10,720,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">10,720,000</td>
+                <td>2.12%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-5,360,000</td>
+                <td class="negative-value">-5,360,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-10,720,000</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td class="item-desc">Instalasi dan Kolokasi Server</td>
+                <td class="value-cell">8,580,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">8,580,000</td>
+                <td>1.69%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-2,860,000</td>
+                <td class="negative-value">-2,860,000</td>
+                <td class="negative-value">-2,860,000</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-8,580,000</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td class="item-desc">Penyusunan Panduan Operasional (SOP dan Manual Sistem Aplikasi)</td>
+                <td class="value-cell">22,110,000</td>
+                <td class="value-cell">5,940,000</td>
+                <td class="value-cell">28,050,000</td>
+                <td>5.54%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-14,025,000</td>
+                <td class="negative-value">-14,025,000</td>
+                <td></td>
+                <td class="negative-value">-28,050,000</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td class="item-desc">Uji Coba Operasional</td>
+                <td class="value-cell">15,420,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">15,420,000</td>
+                <td>3.05%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-7,710,000</td>
+                <td class="negative-value">-7,710,000</td>
+                <td class="negative-value">-15,420,000</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td class="item-desc">Pelatihan Operasional</td>
+                <td class="value-cell">11,030,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">11,030,000</td>
+                <td>2.18%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-5,515,000</td>
+                <td class="negative-value">-5,515,000</td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-11,030,000</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td class="item-desc">Kampanye Peluncuran</td>
+                <td class="value-cell">10,720,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">10,720,000</td>
+                <td>2.12%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-5,360,000</td>
+                <td class="negative-value">-5,360,000</td>
+                <td></td>
+                <td class="negative-value">-10,720,000</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td class="item-desc">Launching</td>
+                <td class="value-cell">2,630,000</td>
+                <td class="value-cell">8,910,000</td>
+                <td class="value-cell">11,540,000</td>
+                <td>2.28%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-11,540,000</td>
+                <td class="negative-value">-11,540,000</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td class="item-desc">Evaluasi Peluncuran</td>
+                <td class="value-cell">7,900,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">7,900,000</td>
+                <td>1.56%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-7,900,000</td>
+                <td class="negative-value">-7,900,000</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td class="item-desc">Evaluasi Kinerja Tim</td>
+                <td class="value-cell">18,610,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">18,610,000</td>
+                <td>3.68%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-9,305,000</td>
+                <td class="negative-value">-9,305,000</td>
+                <td class="negative-value">-18,610,000</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td class="item-desc">Project Closing</td>
+                <td class="value-cell">7,440,000</td>
+                <td class="value-cell">0</td>
+                <td class="value-cell">7,440,000</td>
+                <td>1.47%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="negative-value">-7,440,000</td>
+                <td class="negative-value">-7,440,000</td>
+            </tr>
+            <tr class="total-row">
+                <td colspan="3">Total Pembiayaan</td>
+                <td class="value-cell">332,700,000</td>
+                <td class="value-cell">173,250,000</td>
+                <td>100%</td>
+                <td class="negative-value">-35,690,833</td>
+                <td class="negative-value">-33,110,833</td>
+                <td class="negative-value">-38,710,833</td>
+                <td class="negative-value">-25,167,500</td>
+                <td class="negative-value">-14,900,000</td>
+                <td class="negative-value">-9,300,000</td>
+                <td class="negative-value">-9,300,000</td>
+                <td class="negative-value">-109,912,500</td>
+                <td class="negative-value">-100,612,500</td>
+                <td class="negative-value">-16,207,500</td>
+                <td class="negative-value">-32,732,500</td>
+                <td class="negative-value">-36,400,000</td>
+                <td class="negative-value">-43,895,000</td>
+                <td class="negative-value">-505,950,000</td>
+            </tr>
+            
+            <!-- E. Saldo Akhir -->
+            <tr class="grand-total-row">
+                <td colspan="5">E. SALDO MINGGUAN (A+B+C+D)</td>
+                <td></td>
+                <td>64,309,167</td>
+                <td>-33,110,833</td>
+                <td>-38,710,833</td>
+                <td>-25,167,500</td>
+                <td>111,587,500</td>
+                <td>-9,300,000</td>
+                <td>-9,300,000</td>
+                <td>-112,442,250</td>
+                <td>76,470,000</td>
+                <td>-16,207,500</td>
+                <td>-36,274,150</td>
+                <td>-36,400,000</td>
+                <td>54,437,400</td>
+                <td>-10,119,000</td>
+            </tr>
+            <tr class="balance-row">
+                <td colspan="5">SALDO KUMULATIF</td>
+                <td></td>
+                <td>64,309,167</td>
+                <td>31,198,334</td>
+                <td>-7,512,499</td>
+                <td>-32,679,999</td>
+                <td>78,907,501</td>
+                <td>69,607,501</td>
+                <td>60,307,501</td>
+                <td>-52,134,749</td>
+                <td>24,335,251</td>
+                <td>8,127,751</td>
+                <td>-28,146,399</td>
+                <td>-64,546,399</td>
+                <td>-10,108,999</td>
+                <td>-10,108,999</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="chart-container">
+        <canvas id="baselineFlowChart"></canvas>
+    </div>
+    
+    <div style="margin-top: 20px; padding: 15px; background-color: #f9f9f9; border-radius: 5px;">
+        <h3 style="margin-top: 0; color: #2c3e50;">Analisis Cash Flow Baseline</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <div class="info-card negative">
+                <h4>⚠️ Saldo Terendah</h4>
+                <div class="info-value">Rp -64,546,399</div>
+                <small>Terjadi pada Minggu ke-12</small>
+            </div>
+            <div class="info-card neutral">
+                <h4>💼 Modal Kerja yang Dibutuhkan</h4>
+                <div class="info-value">Rp 100,000,000</div>
+                <small>Untuk menutupi defisit pada periode kritis</small>
+            </div>
+        </div>
+        <ul style="margin-bottom: 0;">
+            <li><strong>Periode Kritis Baseline:</strong> Terjadi pada minggu ke-8 dan minggu ke-12 (cashflow negatif signifikan)</li>
+            <li><strong>Perbandingan dengan Aktual:</strong> Baseline menunjukkan kebutuhan modal kerja lebih tinggi karena pengeluaran terjadi sesuai jadwal</li>
+            <li><strong>Perbedaan Utama:</strong> Pengadaan perangkat dan pembayaran tahap 2 memiliki timing yang berbeda dengan pelaksanaan aktual</li>
+            <li><strong>Rekomendasi:</strong> Penyesuaian milestone pembayaran untuk mengurangi kebutuhan modal kerja pada baseline</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    // Add this to your existing script section
+    
+    // Function to toggle baseline table visibility
+    function toggleBaselineTable() {
+        const table = document.getElementById('baseline-table');
+        if (table.style.display === 'none') {
+            table.style.display = 'table';
+        } else {
+            table.style.display = 'none';
+        }
+    }
+    
+    // Chart data for baseline
+    const baselineWeeks = Array.from({length: 13}, (_, i) => `Minggu ${i+1}`);
+    const baselineCashInflows = [
+        100000000, 0, 0, 0, 126487500, 0, 0, 0, 177082500, 0, 0, 0, 202380000
+    ];
+    const baselineCashOutflows = [
+        -35690833, -33110833, -38710833, -25167500, -14900000, -9300000, -9300000, -112442250, 
+        -100612500, -16207500, -36274150, -36400000, -47942600
+    ];
+    const baselineCumulativeBalance = [
+        64309167, 31198334, -7512499, -32679999, 78907501, 69607501, 60307501, -52134749, 
+        24335251, 8127751, -28146399, -64546399, -10108999
+    ];
+    
+    // Create baseline chart
+    const ctxBaseline = document.getElementById('baselineFlowChart').getContext('2d');
+    const baselineChart = new Chart(ctxBaseline, {
+        type: 'bar',
+        data: {
+            labels: baselineWeeks,
+            datasets: [
+                {
+                    label: 'Pemasukan (Baseline)',
+                    data: baselineCashInflows,
+                    backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                    borderColor: 'rgba(46, 204, 113, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Pengeluaran (Baseline)',
+                    data: baselineCashOutflows,
+                    backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                    borderColor: 'rgba(231, 76, 60, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Saldo Kumulatif (Baseline)',
+                    data: baselineCumulativeBalance,
+                    type: 'line',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 3,
+                    pointRadius: 4,
+                    pointBackgroundColor: 'rgba(52, 152, 219, 1)',
+                    fill: false,
+                    tension: 0.4,
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Nilai Rupiah (Baseline)'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value >= 1000000 
+                                ? (value / 1000000).toFixed(1) + 'M' 
+                                : (value / 1000).toFixed(0) + 'K';
+                        }
+                    }
+                },
+                y1: {
+                    position: 'right',
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Saldo Kumulatif (Baseline)'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value >= 1000000 
+                                ? (value / 1000000).toFixed(1) + 'M' 
+                                : (value / 1000).toFixed(0) + 'K';
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                title: {
+                    display: true,
+                    text: 'Cash Flow Baseline - Proyek HNI Universe',
+                    font: {
+                        size: 16
+                    }
+                }
+            }
+        }
+    });
+    
+    // Update Excel download function to include baseline data
+    document.getElementById('downloadBaselineExcel').addEventListener('click', function() {
+        const wb = XLSX.utils.book_new();
+        
+        // Convert table data to worksheet
+        const tableEl = document.querySelector('#baseline-table');
+        const ws = XLSX.utils.table_to_sheet(tableEl);
+        
+        XLSX.utils.book_append_sheet(wb, ws, 'Cash Flow Baseline');
+        XLSX.writeFile(wb, 'Cash_Flow_Baseline_Proyek.xlsx');
+    });
+</script>
 
     <script>
         // Chart data
