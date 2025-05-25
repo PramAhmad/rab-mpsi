@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAB - Perbandingan 4 Versi Anggaran Proyek</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 15px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .controls {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 3px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 4px;
+            text-align: center;
+        }
+        
+        .comparison-table th {
+            background-color: #34495e;
+            color: white;
+            font-weight: bold;
+            font-size: 9px;
+        }
+        
+        .comparison-table .category-header {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
+            text-align: left;
+            padding-left: 8px;
+        }
+        
+        .comparison-table .sub-total {
+            background-color: #ecf0f1;
+            font-weight: bold;
+        }
+        
+        .comparison-table .total {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .comparison-table .grand-total {
+            background-color: #e74c3c;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .faktual { background-color: #ffeaa7; }
+        .proposal { background-color: #81ecec; }
+        .disetujui { background-color: #a29bfe; color: white; }
+        .simulasi { background-color: #fd79a8; }
+        
+        .number {
+            text-align: right;
+            padding-right: 8px;
+        }
+        
+        .item-desc {
+            text-align: left;
+            padding-left: 8px;
+        }
+        
+        .summary {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .summary-card {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .summary-card h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+        }
+        
+        .summary-value {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .terbilang {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        
+        .terbilang h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        .terbilang-item {
+            margin: 8px 0;
+            padding: 8px;
+            border-left: 4px solid #3498db;
+            background: white;
+            border-radius: 4px;
+        }
+        
+        @media print {
+            .controls { display: none; }
+            body { margin: 0; }
+            .container { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PERBANDINGAN RENCANA ANGGARAN BIAYA (RAB) PROYEK E-LEARNING</h1>
+            <p>Data Anggaran: Faktual | Proposal | Disetujui | Simulasi</p>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="downloadExcel()">📊 Download Excel</button>
+            <button class="btn" onclick="window.print()">🖨️ Print</button>
+            <button class="btn" onclick="toggleView('faktual')">👁️ Show Faktual</button>
+            <button class="btn" onclick="toggleView('proposal')">👁️ Show Proposal</button>
+            <button class="btn" onclick="toggleView('disetujui')">👁️ Show Disetujui</button>
+            <button class="btn" onclick="toggleView('simulasi')">👁️ Show Simulasi</button>
+        </div>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">NO</th>
+                    <th rowspan="2">URAIAN</th>
+                    <th rowspan="2">SATUAN</th>
+                    <th rowspan="2">QTY</th>
+                    <th colspan="2" class="faktual">FAKTUAL</th>
+                    <th colspan="2" class="proposal">PROPOSAL</th>
+                    <th colspan="2" class="disetujui">DISETUJUI</th>
+                    <th colspan="2" class="simulasi">SIMULASI</th>
+                </tr>
+                <tr>
+                    <th class="faktual">Harga Satuan</th>
+                    <th class="faktual">Jumlah</th>
+                    <th class="proposal">Harga Satuan</th>
+                    <th class="proposal">Jumlah</th>
+                    <th class="disetujui">Harga Satuan</th>
+                    <th class="disetujui">Jumlah</th>
+                    <th class="simulasi">Harga Satuan</th>
+                    <th class="simulasi">Jumlah</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="category-header">
+                    <td colspan="12"><strong>A. BIAYA PERSONIL</strong></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td class="item-desc">Project Leader (PM) 1 orang</td>
+                    <td>Orang-Bulan</td>
+                    <td>6</td>
+                    <td class="number faktual">14,500,000</td>
+                    <td class="number faktual">87,000,000</td>
+                    <td class="number proposal">18,850,000</td>
+                    <td class="number proposal">113,100,000</td>
+                    <td class="number disetujui">16,965,000</td>
+                    <td class="number disetujui">101,790,000</td>
+                    <td class="number simulasi">10,000,000</td>
+                    <td class="number simulasi">60,000,000</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="item-desc">Sistem Analis (SA) 1 orang</td>
+                    <td>Orang-Bulan</td>
+                    <td>6</td>
+                    <td class="number faktual">12,000,000</td>
+                    <td class="number faktual">72,000,000</td>
+                    <td class="number proposal">15,600,000</td>
+                    <td class="number proposal">93,600,000</td>
+                    <td class="number disetujui">14,040,000</td>
+                    <td class="number disetujui">84,240,000</td>
+                    <td class="number simulasi">8,000,000</td>
+                    <td class="number simulasi">48,000,000</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="item-desc">Ahli Programmer (PGM) 3 orang</td>
+                    <td>Orang-Bulan</td>
+                    <td>9</td>
+                    <td class="number faktual">6,000,000</td>
+                    <td class="number faktual">54,000,000</td>
+                    <td class="number proposal">7,800,000</td>
+                    <td class="number proposal">70,200,000</td>
+                    <td class="number disetujui">7,020,000</td>
+                    <td class="number disetujui">63,180,000</td>
+                    <td class="number simulasi">4,000,000</td>
+                    <td class="number simulasi">36,000,000</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td class="item-desc">Ahli Database (AD) 1 orang</td>
+                    <td>Orang-Bulan</td>
+                    <td>3</td>
+                    <td class="number faktual">8,500,000</td>
+                    <td class="number faktual">25,500,000</td>
+                    <td class="number proposal">11,050,000</td>
+                    <td class="number proposal">33,150,000</td>
+                    <td class="number disetujui">9,500,000</td>
+                    <td class="number disetujui">28,500,000</td>
+                    <td class="number simulasi">5,500,000</td>
+                    <td class="number simulasi">16,500,000</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td class="item-desc">Ahli Jaringan (AJ) 1 orang</td>
+                    <td>Orang-Bulan</td>
+                    <td>3</td>
+                    <td class="number faktual">8,000,000</td>
+                    <td class="number faktual">24,000,000</td>
+                    <td class="number proposal">10,400,000</td>
+                    <td class="number proposal">31,200,000</td>
+                    <td class="number disetujui">9,360,000</td>
+                    <td class="number disetujui">28,080,000</td>
+                    <td class="number simulasi">5,000,000</td>
+                    <td class="number simulasi">15,000,000</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td class="item-desc">Tester (TS) 1 orang</td>
+                    <td>Orang-Bulan</td>
+                    <td>3</td>
+                    <td class="number faktual">5,000,000</td>
+                    <td class="number faktual">15,000,000</td>
+                    <td class="number proposal">6,500,000</td>
+                    <td class="number proposal">19,500,000</td>
+                    <td class="number disetujui">5,850,000</td>
+                    <td class="number disetujui">17,550,000</td>
+                    <td class="number simulasi">2,500,000</td>
+                    <td class="number simulasi">7,500,000</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td class="item-desc">Trainer (TR)</td>
+                    <td>Orang-Bulan</td>
+                    <td>2</td>
+                    <td class="number faktual">4,000,000</td>
+                    <td class="number faktual">8,000,000</td>
+                    <td class="number proposal">5,200,000</td>
+                    <td class="number proposal">10,400,000</td>
+                    <td class="number disetujui">4,680,000</td>
+                    <td class="number disetujui">9,360,000</td>
+                    <td class="number simulasi">1,000,000</td>
+                    <td class="number simulasi">2,000,000</td>
+                </tr>
+                <tr class="sub-total">
+                    <td colspan="4"><strong>Sub Total A</strong></td>
+                    <td colspan="2" class="number faktual"><strong>285,500,000</strong></td>
+                    <td colspan="2" class="number proposal"><strong>371,150,000</strong></td>
+                    <td colspan="2" class="number disetujui"><strong>332,700,000</strong></td>
+                    <td colspan="2" class="number simulasi"><strong>185,000,000</strong></td>
+                </tr>
+                
+                <tr class="category-header">
+                    <td colspan="12"><strong>B. BIAYA NON PERSONIL</strong></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td class="item-desc">Pengadaan Perangkat</td>
+                    <td>Paket</td>
+                    <td>1</td>
+                    <td class="number faktual">160,000,000</td>
+                    <td class="number faktual">160,000,000</td>
+                    <td class="number proposal">176,000,000</td>
+                    <td class="number proposal">176,000,000</td>
+                    <td class="number disetujui">158,400,000</td>
+                    <td class="number disetujui">158,400,000</td>
+                    <td class="number simulasi">158,000,000</td>
+                    <td class="number simulasi">158,000,000</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="item-desc">Pengadaan Perangkat Jaringan</td>
+                    <td>Paket</td>
+                    <td>1</td>
+                    <td class="number faktual">6,000,000</td>
+                    <td class="number faktual">6,000,000</td>
+                    <td class="number proposal">6,600,000</td>
+                    <td class="number proposal">6,600,000</td>
+                    <td class="number disetujui">5,940,000</td>
+                    <td class="number disetujui">5,940,000</td>
+                    <td class="number simulasi">4,340,000</td>
+                    <td class="number simulasi">4,340,000</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="item-desc">Launching</td>
+                    <td>Paket</td>
+                    <td>1</td>
+                    <td class="number faktual">9,000,000</td>
+                    <td class="number faktual">9,000,000</td>
+                    <td class="number proposal">9,900,000</td>
+                    <td class="number proposal">9,900,000</td>
+                    <td class="number disetujui">8,910,000</td>
+                    <td class="number disetujui">8,910,000</td>
+                    <td class="number simulasi">6,825,000</td>
+                    <td class="number simulasi">6,825,000</td>
+                </tr>
+                <tr class="sub-total">
+                    <td colspan="4"><strong>Sub Total B</strong></td>
+                    <td colspan="2" class="number faktual"><strong>175,000,000</strong></td>
+                    <td colspan="2" class="number proposal"><strong>192,500,000</strong></td>
+                    <td colspan="2" class="number disetujui"><strong>173,250,000</strong></td>
+                    <td colspan="2" class="number simulasi"><strong>169,165,000</strong></td>
+                </tr>
+                
+                <tr class="total">
+                    <td colspan="4"><strong>TOTAL (A + B)</strong></td>
+                    <td colspan="2" class="number faktual"><strong>460,500,000</strong></td>
+                    <td colspan="2" class="number proposal"><strong>563,650,000</strong></td>
+                    <td colspan="2" class="number disetujui"><strong>505,950,000</strong></td>
+                    <td colspan="2" class="number simulasi"><strong>354,165,000</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><strong>PPN 10%</strong></td>
+                    <td colspan="2" class="number faktual"><strong>46,050,000</strong></td>
+                    <td colspan="2" class="number proposal"><strong>56,365,000</strong></td>
+                    <td colspan="2" class="number disetujui"><strong>50,595,000</strong></td>
+                    <td colspan="2" class="number simulasi"><strong>35,416,500</strong></td>
+                </tr>
+                <tr class="grand-total">
+                    <td colspan="4"><strong>GRAND TOTAL</strong></td>
+                    <td colspan="2" class="number faktual"><strong>506,550,000</strong></td>
+                    <td colspan="2" class="number proposal"><strong>620,015,000</strong></td>
+                    <td colspan="2" class="number disetujui"><strong>556,545,000</strong></td>
+                    <td colspan="2" class="number simulasi"><strong>389,581,500</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="summary">
+            <div class="summary-card faktual">
+                <h4>📊 FAKTUAL</h4>
+                <div class="summary-value">Rp 506,550,000</div>
+                <small>Base Line Budget</small>
+            </div>
+            <div class="summary-card proposal">
+                <h4>📈 PROPOSAL</h4>
+                <div class="summary-value">Rp 620,015,000</div>
+                <small>+22.4% dari Faktual</small>
+            </div>
+            <div class="summary-card disetujui">
+                <h4>✅ DISETUJUI</h4>
+                <div class="summary-value">Rp 556,545,000</div>
+                <small>+9.9% dari Faktual</small>
+            </div>
+            <div class="summary-card simulasi">
+                <h4>🎯 SIMULASI</h4>
+                <div class="summary-value">Rp 389,581,500</div>
+                <small>-23.1% dari Faktual</small>
+            </div>
+        </div>
+        
+        <div class="terbilang">
+            <h3>💰 Terbilang Grand Total</h3>
+            <div class="terbilang-item">
+                <strong>FAKTUAL:</strong> LIMA RATUS ENAM JUTA LIMA RATUS LIMA PULUH RIBU RUPIAH
+            </div>
+            <div class="terbilang-item">
+                <strong>PROPOSAL:</strong> ENAM RATUS DUA PULUH JUTA LIMA BELAS RIBU RUPIAH
+            </div>
+            <div class="terbilang-item">
+                <strong>DISETUJUI:</strong> LIMA RATUS LIMA PULUH ENAM JUTA LIMA RATUS EMPAT PULUH LIMA RIBU RUPIAH
+            </div>
+            <div class="terbilang-item">
+                <strong>SIMULASI:</strong> TIGA RATUS DELAPAN PULUH SEMBILAN JUTA LIMA RATUS DELAPAN PULUH SATU RIBU LIMA RATUS RUPIAH
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadExcel() {
+            const wb = XLSX.utils.book_new();
+            
+            const data = [
+                ['PERBANDINGAN RENCANA ANGGARAN BIAYA (RAB) PROYEK E-LEARNING'],
+                ['Data Anggaran: Faktual | Proposal | Disetujui | Simulasi'],
+                [''],
+                ['NO', 'URAIAN', 'SATUAN', 'QTY', 'FAKTUAL - Harga Satuan', 'FAKTUAL - Jumlah', 'PROPOSAL - Harga Satuan', 'PROPOSAL - Jumlah', 'DISETUJUI - Harga Satuan', 'DISETUJUI - Jumlah', 'SIMULASI - Harga Satuan', 'SIMULASI - Jumlah'],
+                [''],
+                ['A. BIAYA PERSONIL'],
+                ['1', 'Project Leader (PM) 1 orang', 'Orang-Bulan', 6, 14500000, 87000000, 18850000, 113100000, 16965000, 101790000, 10000000, 60000000],
+                ['2', 'Sistem Analis (SA) 1 orang', 'Orang-Bulan', 6, 12000000, 72000000, 15600000, 93600000, 14040000, 84240000, 8000000, 48000000],
+                ['3', 'Ahli Programmer (PGM) 3 orang', 'Orang-Bulan', 9, 6000000, 54000000, 7800000, 70200000, 7020000, 63180000, 4000000, 36000000],
+                ['4', 'Ahli Database (AD) 1 orang', 'Orang-Bulan', 3, 8500000, 25500000, 11050000, 33150000, 9500000, 28500000, 5500000, 16500000],
+                ['5', 'Ahli Jaringan (AJ) 1 orang', 'Orang-Bulan', 3, 8000000, 24000000, 10400000, 31200000, 9360000, 28080000, 5000000, 15000000],
+                ['6', 'Tester (TS) 1 orang', 'Orang-Bulan', 3, 5000000, 15000000, 6500000, 19500000, 5850000, 17550000, 2500000, 7500000],
+                ['7', 'Trainer (TR)', 'Orang-Bulan', 2, 4000000, 8000000, 5200000, 10400000, 4680000, 9360000, 1000000, 2000000],
+                ['', 'Sub Total A', '', '', '', 285500000, '', 371150000, '', 332700000, '', 185000000],
+                [''],
+                ['B. BIAYA NON PERSONIL'],
+                ['1', 'Pengadaan Perangkat', 'Paket', 1, 160000000, 160000000, 176000000, 176000000, 158400000, 158400000, 158000000, 158000000],
+                ['2', 'Pengadaan Perangkat Jaringan', 'Paket', 1, 6000000, 6000000, 6600000, 6600000, 5940000, 5940000, 4340000, 4340000],
+                ['3', 'Launching', 'Paket', 1, 9000000, 9000000, 9900000, 9900000, 8910000, 8910000, 6825000, 6825000],
+                ['', 'Sub Total B', '', '', '', 175000000, '', 192500000, '', 173250000, '', 169165000],
+                [''],
+                ['', 'TOTAL (A + B)', '', '', '', 460500000, '', 563650000, '', 505950000, '', 354165000],
+                ['', 'PPN 10%', '', '', '', 46050000, '', 56365000, '', 50595000, '', 35416500],
+                ['', 'GRAND TOTAL', '', '', '', 506550000, '', 620015000, '', 556545000, '', 389581500],
+                [''],
+                ['TERBILANG:'],
+                ['FAKTUAL', 'LIMA RATUS ENAM JUTA LIMA RATUS LIMA PULUH RIBU RUPIAH'],
+                ['PROPOSAL', 'ENAM RATUS DUA PULUH JUTA LIMA BELAS RIBU RUPIAH'],
+                ['DISETUJUI', 'LIMA RATUS LIMA PULUH ENAM JUTA LIMA RATUS EMPAT PULUH LIMA RIBU RUPIAH'],
+                ['SIMULASI', 'TIGA RATUS DELAPAN PULUH SEMBILAN JUTA LIMA RATUS DELAPAN PULUH SATU RIBU LIMA RATUS RUPIAH']
+            ];
+            
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            
+            ws['!cols'] = [
+                {wch: 5},   // NO
+                {wch: 35},  // URAIAN
+                {wch: 15},  // SATUAN
+                {wch: 8},   // QTY
+                {wch: 15},  // FAKTUAL Harga
+                {wch: 15},  // FAKTUAL Jumlah
+                {wch: 15},  // PROPOSAL Harga
+                {wch: 15},  // PROPOSAL Jumlah
+                {wch: 15},  // DISETUJUI Harga
+                {wch: 15},  // DISETUJUI Jumlah
+                {wch: 15},  // SIMULASI Harga
+                {wch: 15}   // SIMULASI Jumlah
+            ];
+            
+            XLSX.utils.book_append_sheet(wb, ws, 'Perbandingan RAB');
+            XLSX.writeFile(wb, 'Perbandingan_RAB_Proyek_E-Learning.xlsx');
+        }
+        
+        function toggleView(type) {
+            const elements = document.querySelectorAll(`.${type}`);
+            elements.forEach(el => {
+                el.style.display = el.style.display === 'none' ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
