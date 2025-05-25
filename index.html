@@ -170,7 +170,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>PERBANDINGAN RENCANA ANGGARAN BIAYA (RAB) PROYEK E-LEARNING</h1>
+            <h1>PERBANDINGAN RENCANA ANGGARAN BIAYA (RAB) PROYEK HNI Universe</h1>
             <p>Data Anggaran: Faktual | Proposal | Disetujui | Simulasi</p>
         </div>
         
@@ -438,7 +438,7 @@
             const wb = XLSX.utils.book_new();
             
             const data = [
-                ['PERBANDINGAN RENCANA ANGGARAN BIAYA (RAB) PROYEK E-LEARNING'],
+                ['PERBANDINGAN RENCANA ANGGARAN BIAYA (RAB) PROYEK HNI Universe'],
                 ['Data Anggaran: Faktual | Proposal | Disetujui | Simulasi'],
                 [''],
                 ['NO', 'URAIAN', 'SATUAN', 'QTY', 'FAKTUAL - Harga Satuan', 'FAKTUAL - Jumlah', 'PROPOSAL - Harga Satuan', 'PROPOSAL - Jumlah', 'DISETUJUI - Harga Satuan', 'DISETUJUI - Jumlah', 'SIMULASI - Harga Satuan', 'SIMULASI - Jumlah'],
@@ -488,7 +488,7 @@
             ];
             
             XLSX.utils.book_append_sheet(wb, ws, 'Perbandingan RAB');
-            XLSX.writeFile(wb, 'Perbandingan_RAB_Proyek_E-Learning.xlsx');
+            XLSX.writeFile(wb, 'Perbandingan_RAB_Proyek_HNI Universe.xlsx');
         }
         
         function toggleView(type) {
